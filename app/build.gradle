@@ -3,9 +3,9 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 'Datalogic:Datalogic SDK v1:28'
     buildToolsVersion "30.0.3"
-
+compileSdk 33
     defaultConfig {
         applicationId "com.example.rtcvision"
         minSdkVersion 19
@@ -23,8 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
@@ -39,5 +39,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'com.github.datalogic:datalogic-android-sdk:1.17'
-
+    implementation "androidx.annotation:annotation:1.4.0"
 }
