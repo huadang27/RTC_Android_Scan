@@ -1,15 +1,15 @@
-package com.example.rtcvision.Main.Main;
+package com.example.rtcvision.Main.Main.tcp_ip;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +21,8 @@ import com.datalogic.decode.BarcodeManager;
 import com.datalogic.decode.DecodeException;
 import com.datalogic.decode.DecodeResult;
 import com.datalogic.decode.ReadListener;
-import com.example.rtcvision.Main.Main.Adapter.ScannedResultsAdapter;
+import com.example.rtcvision.Main.Main.HomeScan;
+import com.example.rtcvision.Main.Main.adapter.ScannedResultsAdapter;
 import com.example.rtcvision.R;
 
 import java.io.DataOutputStream;
@@ -31,24 +32,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class BarcodeScannerActivity extends AppCompatActivity {
-    private String ipAddress;
-    private String port;
+    private String ipAddress,port;
     private Socket clientSocket;
     private DataOutputStream dataOutputStream;
-
     private BarcodeManager barcodeManager;
     private TextView textViewBarcodeData;
-    private Button buttonScanPhysical;
-    private Button buttonClearList;
+    private Button buttonScanPhysical,buttonClearList;
     private ListView listViewScannedResults;
+    ImageView imgBack;
     private boolean isScanning = false;
-    private long lastClickTime = 0;
-    private static final long CLICK_TIME_INTERVAL = 1000;
-    private Handler clickHandler = new Handler();
     private List<String> scannedResults;
     private ScannedResultsAdapter adapter;
     private ExecutorService executorService;
@@ -57,13 +51,13 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         executorService = Executors.newSingleThreadExecutor();
 
         barcodeManager = new BarcodeManager();
+        imgBack = findViewById(R.id.img_back);
         textViewBarcodeData = findViewById(R.id.textViewBarcodeData);
         buttonScanPhysical = findViewById(R.id.buttonScanPhysical);
         buttonClearList = findViewById(R.id.buttonClearList);
@@ -87,7 +81,13 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 return true;
             }
         });
-
+imgBack.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(BarcodeScannerActivity.this, HomeScan.class);
+        startActivity(intent);
+    }
+});
         buttonClearList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +115,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                     new SendDataAsyn(clientSocket).execute(barcodeData);
                 } else {
 
-                    Toast.makeText(BarcodeScannerActivity.this, " Kết nối chưa được cấu hình", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BarcodeScannerActivity.this, " Kết nối chưa được cấu hìnhhh", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -233,6 +233,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         super.onDestroy();
         executorService.shutdownNow();
         closeConnection();
+        disableBarcodeScanning();
     }
 
     private void closeConnection() {
@@ -247,5 +248,6 @@ public class BarcodeScannerActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
 }

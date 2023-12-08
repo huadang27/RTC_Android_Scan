@@ -1,4 +1,4 @@
-package com.example.rtcvision.Main.Main.Adapter;
+package com.example.rtcvision.Main.Main.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

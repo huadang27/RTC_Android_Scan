@@ -14,15 +14,21 @@
 
     <application
         android:allowBackup="true"
+        android:icon="@drawable/logortc"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RTCVision">
         <activity
-
-            android:label="Network"
-        android:name=".Main.Main.NetworkConfig"
+            android:name=".Main.Main.HomeScan"
             android:exported="false" />
+        <activity
+            android:name=".Main.Main.api.PushDataAPI"
+            android:exported="false" />
+        <activity
+            android:name=".Main.Main.tcp_ip.NetworkConfig"
+            android:exported="false"
+            android:label="Network" />
 
         <uses-library
             android:name="com.datalogic.device"
@@ -31,9 +37,9 @@
         <activity android:name=".Main.Main.Home" />
         <activity android:name=".Main.Main.Settings" />
         <activity android:name=".Main.Main.MainActivity" />
-
+        <activity android:name=".Main.Main.tcp_ip.BarcodeScannerActivity" />
         <activity
-            android:name=".Main.Main.BarcodeScannerActivity"
+            android:name=".Main.Main.SilentLoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

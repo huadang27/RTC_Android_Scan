@@ -1,4 +1,4 @@
-package com.example.rtcvision.Main.Main;
+package com.example.rtcvision.Main.Main.tcp_ip;
 
 import androidx.appcompat.app.AppCompatActivity;
 
